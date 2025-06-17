@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Universal Balance Law – Vote for Example</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      padding: 2rem;
+      color: #111827;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+    h1 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #4b5563;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+    .confirmation {
+      display: none;
+      color: green;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Universal Balance Law</h1>
+    <p>Vote for which example you would like to see published next. You can choose a power \( m \in \{1, 2, ..., 6\} \) and a starting number \( n \).</p>
+    <form name="vote-form">
+      <label for="power">Select power m (1 to 6):</label>
+      <select name="power" id="power">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+
+      <label for="start">Enter starting value n:</label>
+      <input type="number" name="start" id="start" placeholder="e.g. 5" min="1" required />
+
+      <button type="submit">Submit Vote</button>
+    </form>
+
+    <div class="confirmation" id="confirmation">
+      ✅ Thank you for your vote! The most popular example will be published soon.
+    </div>
+  </div>
+
+  <script>
+    const form = document.forms['vote-form'];
+    const confirmation = document.getElementById('confirmation');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const power = form.power.value;
+      const start = form.start.value;
+
+      const webhookURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec';
+      fetch(webhookURL, {
+        method: 'POST',
+        body: new URLSearchParams({ power, start })
+      })
+        .then(() => {
+          form.reset();
+          confirmation.style.display = 'block';
+        })
+        .catch(err => alert('Error submitting vote'));
+    });
+  </script>
+</body>
+</html>
