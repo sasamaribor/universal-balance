@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Universal Balance Voting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 2em auto;
+      padding: 1em;
+      background-color: #f8f8f8;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    h1 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 1em;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 0.5em;
+      font-size: 1em;
+      margin-top: 0.5em;
+    }
+    .thanks {
+      color: green;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Vote for Desired Balance Example</h1>
+  <form id="voteForm">
+    <label for="power">Choose natural power m (1–6):</label>
+    <select id="power" name="power" required>
+      <option value="1">m = 1</option>
+      <option value="2">m = 2</option>
+      <option value="3">m = 3</option>
+      <option value="4">m = 4</option>
+      <option value="5">m = 5</option>
+      <option value="6">m = 6</option>
+    </select>
+
+    <label for="start">Enter starting number n:</label>
+    <input type="number" id="start" name="start" min="1" required>
+
+    <button type="submit">Submit Vote</button>
+    <div id="response" class="thanks"></div>
+  </form>
+
+  <script>
+    document.getElementById('voteForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const power = document.getElementById('power').value;
+      const start = document.getElementById('start').value;
+      // Here you can later send the vote to a database or Google Sheets
+      document.getElementById('response').innerText = 
+        `Thanks! You voted for m = ${power} with starting n = ${start}.`;
+      document.getElementById('voteForm').reset();
+    });
+  </script>
+</body>
+</html>
